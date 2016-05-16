@@ -72,7 +72,7 @@ still x = A x id go where
   go x dt = A x id go
 
 clock :: Time -> A Time Time
-clock t0 = go t0 id go where
+clock t0 = A t0 id go where
   go t dt = A (t + dt) id go
 
 anim :: (m -> Delta -> m) -> m -> A m m
@@ -149,6 +149,7 @@ seg :: (A m v -> A m v) -> Segs m v -> Segs m v
 seg f (End a) = End (f a)
 seg f (Segs t a ss) = Segs t (f a) ss
 
+{-
 data AddValue v a = AddValue v a deriving (Show, Functor)
 data AddMotion a = AddMotion R2 R2 a deriving (Show, Functor)
 data AddAlt a b = Alt1 a b | Alt2 a b deriving Show -- Bifunctor
@@ -164,6 +165,7 @@ alt2 :: AddAlt a b -> AddAlt a b
 toggle :: AddAlt a b -> AddAlt a b
 pause :: AddPause a -> AddPause a
 unpause :: AddPause a -> AddPause a
+-}
 
 class Payload f where
   payload :: f a -> a
